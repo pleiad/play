@@ -36,7 +36,7 @@
      (define-type (t) (variant vfield ...) ...)]))
 
 (define-syntax (plai-provide stx)
-  (raise-syntax-error #f "The PLAI/CC4101 language provides all defined names" stx))
+  (raise-syntax-error #f "The PLAY language provides all defined names" stx))
 
 (define-syntax (plai-module-begin stx)
   (syntax-case stx ()
