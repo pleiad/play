@@ -14,10 +14,10 @@
          (rename-out [plai-error error] 
                      [plai-provide provide]
                      [plai-module-begin #%module-begin]                     
-                     [match-define def]
+                     [define def]
+                     [match-define mdef]
                      [define-type deftype]
-                     [defmac define-macro]
-                     [define defun]))
+                     [defmac define-macro]))
 
 (define-syntax define-type
   (syntax-rules ()
