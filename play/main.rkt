@@ -37,11 +37,11 @@
 
 (define-syntax defun
   (syntax-rules ()
-    [(defun (head args ...) body)
-       (define (head args ...) body)]     
     [(defun (head args ...) [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)
      (define/match (head args ...)
-       [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)]))
+       [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)]
+    [(defun (head args ...) body)
+       (define (head args ...) body)]))
 
 (define-syntax (plai-provide stx)
   (raise-syntax-error #f "The PLAY language provides all defined names" stx))
