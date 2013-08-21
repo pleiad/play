@@ -10,12 +10,12 @@
          define
          match-define
          define-type
-         defmac
-         defun
+         defmac         
          (rename-out [plai-error error] 
                      [plai-provide provide]
                      [plai-module-begin #%module-begin]                     
                      [match-define def]
+                     [define defun]
                      [define-type deftype]
                      [defmac define-macro]))                     
 
@@ -35,13 +35,13 @@
     [(define-type t (variant vfield ...) ...)
      (define-type (t) (variant vfield ...) ...)]))
 
-(define-syntax defun
-  (syntax-rules ()
-    [(defun (head args ...) [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)
-     (define/match (head args ...)
-       [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)]
-    [(defun (head args ...) body)
-       (define (head args ...) body)]))
+;(define-syntax defun
+;  (syntax-rules ()
+;    [(defun (head args ...) [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)
+;     (define/match (head args ...)
+;       [(pat p ...) pbody pb ...] [(pat* p* ...) pbody* pb* ...] ...)]
+;    [(defun (head args ...) body)
+;       (define (head args ...) body)]))
 
 (define-syntax (plai-provide stx)
   (raise-syntax-error #f "The PLAY language provides all defined names" stx))
