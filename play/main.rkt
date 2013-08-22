@@ -10,7 +10,8 @@
          define
          match-define
          define-type
-         defmac         
+         defmac
+         match*
          (rename-out [plai-error error] 
                      [plai-provide provide]
                      [plai-module-begin #%module-begin]                     
@@ -34,6 +35,13 @@
        (struct variant t (vfield ...) #:transparent #:mutable) ...)]
     [(define-type t (variant vfield ...) ...)
      (define-type (t) (variant vfield ...) ...)]))
+
+(defmac (match* (v vs ...)
+          [(pat pats ...) pbody]    
+          [(pat* pats* ...) pbody*] ...)
+  (match/values (values v vs ...)
+                [(pat pats ...) pbody]
+                [(pat* pats* ...) pbody*] ...))
 
 ;(define-syntax defun
 ;  (syntax-rules ()
