@@ -36,6 +36,6 @@
   '("*.rkt" "*.rkt;*.txt"))
 
 ;; Client configuration
-;(define password-keep-minutes 5) ; client remembers entered password 5 mins
+(define password-keep-minutes 5) ; client remembers entered password 5 mins
 
 (define requires '(("mred") ("openssl")))
