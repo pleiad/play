@@ -1,3 +1,4 @@
+#|
 ; QuickCheck clone
 
 (define-record-type :generator
@@ -689,3 +690,4 @@
 			   ""
 			   (string-append del
 					  (recur (cdr lis))))))))
+|#
