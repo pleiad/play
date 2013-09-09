@@ -52,8 +52,8 @@
 (define (list-sort < lis)
   (sort lis <))
 
-;(require racket/include)
-;(include "quickcheck.scm")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ; QuickCheck clone
 
 (define-record-type :generator
