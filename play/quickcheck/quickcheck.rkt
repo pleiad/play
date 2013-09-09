@@ -1,5 +1,13 @@
 #lang racket/base
 
+(require racket/match)
+
+;; TO DO:
+; - add arbitrary-hash
+; - add documentation
+; - arbitrary recursive data structure (e.g. a binary tree)
+; - refactor using match
+
 (provide check check-results make-config
          quickcheck quickcheck-results
          check-result? result-arguments-list
@@ -8,7 +16,8 @@
          choose-list choose-vector choose-string choose-symbol
          generator-unit generator-bind generator-sequence
          sized choose-one-of choose-mixed choose-with-frequencies
-         arbitrary-boolean arbitrary-char arbitrary-ascii-char arbitrary-printable-ascii-char
+         arbitrary-boolean arbitrary-char arbitrary-ascii-char arbitrary-ascii-letter 
+         arbitrary-printable-ascii-char
          arbitrary-integer arbitrary-natural arbitrary-rational arbitrary-real
          arbitrary-mixed arbitrary-one-of
          arbitrary-pair
@@ -17,6 +26,7 @@
          arbitrary-tuple arbitrary-record
          arbitrary-string
          arbitrary-ascii-string arbitrary-printable-ascii-string
+         arbitrary-ascii-letter-string
          arbitrary-symbol
          arbitrary-procedure
          arbitrary-generator
@@ -381,33 +391,17 @@
                              (cdr lis))))))))
 
 ;; 
-(define (arbitrary-record construct accessors . arbitrary-els)  
-  (define (foo rec gen)
-    (define (recur arbitrary-els lis)
-      (if (null? arbitrary-els)
-          gen
-          ((arbitrary-transformer (car arbitrary-els))
-           (car lis)
-           (recur (cdr arbitrary-els) (cdr lis)))))
+(define (arbitrary-record construct accessors . arbitrary-els)
+  (define (record-generator rec gen)
+    (define/match (recur arbitrary-fields lis)
+      [((list) _) gen]
+      [((list el els) (list arb arbs))              
+       ((arbitrary-transformer el) arb (recur els arbs))])
     recur)
-  (define arbitrary-els-generators (map arbitrary-generator arbitrary-els))
-  (display arbitrary-els-generators)
   (make-arbitrary (apply lift->generator
                          construct
-                         arbitrary-els-generators)
-                  foo))
-
-;                  (lambda (rec gen)
-;                    (let recur ((arbitrary-els arbitrary-els)
-;                                (lis (map (lambda (accessor) (accessor rec)) accessors)))
-;                      (if (null? arbitrary-els)
-;                          gen
-;                          ((arbitrary-transformer (car arbitrary-els))
-;                           (car lis)
-;                           (recur (cdr arbitrary-els)
-;                             (cdr lis))))))
-
-; ))
+                         (map arbitrary-generator arbitrary-els))
+                  record-generator))
 
 (define (arbitrary-sequence choose-sequence sequence->list arbitrary-el)
   (make-arbitrary (sized
@@ -434,6 +428,9 @@
 
 (define arbitrary-printable-ascii-string
   (arbitrary-sequence choose-string string->list arbitrary-printable-ascii-char))
+
+(define arbitrary-ascii-letter-string
+  (arbitrary-sequence choose-string string->list arbitrary-ascii-letter))
 
 (define arbitrary-string
   (arbitrary-sequence choose-string string->list arbitrary-char))

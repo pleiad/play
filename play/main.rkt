@@ -8,15 +8,15 @@
 (provide 
  (all-from-out "quickcheck.rkt")
  (except-out (all-from-out plai/datatype) type-case)
- (except-out (all-from-out racket) error (for-syntax error) #%module-begin provide match-define define)
+ (except-out (all-from-out racket) error (for-syntax error) #%module-begin match-define define)
  (except-out (all-from-out plai/test-harness) plai-error)         
  define
  match-define
- define-type
+ ;define-type
  defmac
  match*
  (rename-out [plai-error error] 
-             [plai-provide provide]
+             ;[plai-provide provide]
              [plai-module-begin #%module-begin]                     
              [match-define def]
              [define defun]
@@ -54,8 +54,8 @@
 ;    [(defun (head args ...) body)
 ;       (define (head args ...) body)]))
 
-(define-syntax (plai-provide stx)
-  (raise-syntax-error #f "The PLAY language provides all defined names" stx))
+;(define-syntax (plai-provide stx)
+;  (raise-syntax-error #f "The PLAY language provides all defined names" stx))
 
 (define-syntax (plai-module-begin stx)
   (syntax-case stx ()
