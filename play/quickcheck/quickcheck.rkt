@@ -381,6 +381,7 @@
                              (cdr lis))))))))
 
 (define (arbitrary-record construct accessors . arbitrary-els)
+  (display "foooo")
   (make-arbitrary (apply lift->generator
                          construct
                          (map arbitrary-generator arbitrary-els))
