@@ -5,15 +5,14 @@
          "defmac.rkt")
 
 (provide (except-out (all-from-out plai/datatype) type-case)
-         (except-out (all-from-out racket) error (for-syntax error) #%module-begin provide match-define define)
+         (except-out (all-from-out racket) error (for-syntax error) #%module-begin match-define define)
          (except-out (all-from-out plai/test-harness) plai-error)         
          define
          match-define
          define-type
          defmac
          match*
-         (rename-out [plai-error error] 
-                     [plai-provide provide]
+         (rename-out [plai-error error]                     
                      [plai-module-begin #%module-begin]                     
                      [match-define def]
                      [define defun]
