@@ -381,8 +381,7 @@
                              (cdr lis))))))))
 
 ;; 
-(define (arbitrary-record construct accessors . arbitrary-els)
-  (display "foooo")
+(define (arbitrary-record construct accessors . arbitrary-els)  
   (define (foo rec gen)
     (define (recur arbitrary-els lis)
       (if (null? arbitrary-els)
@@ -390,10 +389,12 @@
           ((arbitrary-transformer (car arbitrary-els))
            (car lis)
            (recur (cdr arbitrary-els) (cdr lis)))))
-    recur)  
+    recur)
+  (define arbitrary-els-generators (map arbitrary-generator arbitrary-els))
+  (display arbitrary-els-generators)
   (make-arbitrary (apply lift->generator
                          construct
-                         (map arbitrary-generator arbitrary-els))
+                         arbitrary-els-generators)
                   foo))
 
 ;                  (lambda (rec gen)
