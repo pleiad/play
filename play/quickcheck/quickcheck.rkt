@@ -380,20 +380,33 @@
                            (recur (cdr arbitrary-els)
                              (cdr lis))))))))
 
+;; 
 (define (arbitrary-record construct accessors . arbitrary-els)
   (display "foooo")
+  (define (foo rec gen)
+    (define (recur arbitrary-els lis)
+      (if (null? arbitrary-els)
+          gen
+          ((arbitrary-transformer (car arbitrary-els))
+           (car lis)
+           (recur (cdr arbitrary-els) (cdr lis)))))
+    recur)  
   (make-arbitrary (apply lift->generator
                          construct
                          (map arbitrary-generator arbitrary-els))
-                  (lambda (rec gen)
-                    (let recur ((arbitrary-els arbitrary-els)
-                                (lis (map (lambda (accessor) (accessor rec)) accessors)))
-                      (if (null? arbitrary-els)
-                          gen
-                          ((arbitrary-transformer (car arbitrary-els))
-                           (car lis)
-                           (recur (cdr arbitrary-els)
-                             (cdr lis))))))))
+                  foo))
+
+;                  (lambda (rec gen)
+;                    (let recur ((arbitrary-els arbitrary-els)
+;                                (lis (map (lambda (accessor) (accessor rec)) accessors)))
+;                      (if (null? arbitrary-els)
+;                          gen
+;                          ((arbitrary-transformer (car arbitrary-els))
+;                           (car lis)
+;                           (recur (cdr arbitrary-els)
+;                             (cdr lis))))))
+
+; ))
 
 (define (arbitrary-sequence choose-sequence sequence->list arbitrary-el)
   (make-arbitrary (sized
