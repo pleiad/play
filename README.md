@@ -46,3 +46,9 @@ but it can obviously be used for general Racket programming.
   #:captures it
   ....)
 ```
+
+### How does it look in practice?
+
+For observing `def`, `defun` and `deftype` in action, see [various interpreters from PLAI](http://www.dcc.uchile.cl/etanter/play-interps/) rewritten in `#lang play`.
+
+For uses of `defmac`, see [OOPLAI](http://www.dcc.uchile.cl/etanter/ooplai), an OOP-with-macros supplement to PLAI.
