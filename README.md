@@ -55,4 +55,4 @@ For uses of `defmac`, see [OOPLAI](http://www.dcc.uchile.cl/etanter/ooplai), an 
 
 # Installation
 
-In DrRacket (v5.3.6 or newer) go to File > Install Package > `github://github.com/pleiad/play/master`
+In DrRacket (v5.3.6 or newer) go to File > Install Package > `play`
