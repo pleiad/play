@@ -17,7 +17,7 @@
 
 (define-syntax deftype
   (syntax-rules ()
-    [(define-type (t tfield ...) (variant vfield ...) ...)
+    [(deftype (t tfield ...) (variant vfield ...) ...)
      (begin
        (struct t (tfield ...)
          #:transparent #:mutable
@@ -28,8 +28,8 @@
                               't (list 'variant ...)))
                (values tfield ...))))
        (struct variant t (vfield ...) #:transparent #:mutable) ...)]
-    [(define-type t (variant vfield ...) ...)
-     (define-type (t) (variant vfield ...) ...)]))
+    [(deftype t (variant vfield ...) ...)
+     (deftype (t) (variant vfield ...) ...)]))
 
 (define-syntax (play-provide stx)
   (raise-syntax-error #f "The PLAY language provides all defined names" stx))
