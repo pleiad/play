@@ -1,9 +1,14 @@
-#lang setup/infotab
+#lang info
 
+(define collection 'multi)
 (define blurb '("PLAY"))
 (define homepage "http://dcc.uchile.cl/~etanter/")
-(define primary-file "main.rkt")
 
-(define deps '("base" "plai" "redex"))
+(define deps '("base"
+               "plai"
+               "redex"
+               "rackunit"
+               "parser-tools-lib"))
 
-;;(define scribblings '(("scribblings/play.scrbl" (multi-page) (teaching -20))))
+(define build-deps '("scribble-lib"
+                     "racket-doc"))

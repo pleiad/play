@@ -1,13 +1,13 @@
-#lang racket
+#lang play
 
-(require play)
+(require play/redex)
 
 ;;
 ;; In addition to the AE structs and variants
 ;; the new deftype defines a Redex language
 ;; named RL-AE, or more generally, "RL-<your deftype name>"
 
-(deftype AE  
+(deftype-redex AE  
   [num number]        ;; we must/can use redex primitive value generators for base cases:
   ;; for now we support: number, natural, integer, real, string, boolean
   [bool boolean]  

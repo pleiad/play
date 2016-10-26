@@ -2,22 +2,13 @@
 
 (require (except-in plai/datatype define-type)
          plai/test-harness
-         "defmac.rkt"
+         "../defmac.rkt"
          (for-syntax racket/syntax)
          (for-syntax racket)
          redex)
 
-(provide (except-out (all-from-out plai/datatype) type-case)
-         (except-out (all-from-out racket) error (for-syntax error) #%module-begin)
-         (except-out (all-from-out plai/test-harness) plai-error)
-         (all-from-out redex)
-         deftype
-         defmac
-         (rename-out [plai-error error]
-                     [play-module-begin #%module-begin]                     
-                     [match-define def]
-                     [define defun]
-                     ))
+(provide deftype-redex
+         (all-from-out redex))
 
 (define-for-syntax (process-variant variants-fields)
   ;; From http://docs.racket-lang.org/redex/The_Redex_Reference.html
@@ -70,13 +61,13 @@
          (map syntax-e variants-fields)))
   transformed-syntaxes)
 
-(define-syntax (deftype stx)
+(define-syntax (deftype-redex stx)
   (syntax-case stx ()
-    [(deftype (t tfield ...) (variant vfield ...) ...)
+    [(deftype-redex (t tfield ...) (variant vfield ...) ...)
      (let ()
-       (with-syntax* ([lang-name (format-id (syntax deftype) "RL-~a" #'t)]
+       (with-syntax* ([lang-name (format-id (syntax deftype-redex) "RL-~a" #'t)]
                       [(lang-terms ...) (process-variant (syntax->list #'((variant vfield ...) ...)))]
-                      [lang-parser-name (format-id (syntax deftype) "parse-redex-~a" #'t)]
+                      [lang-parser-name (format-id (syntax deftype-redex) "parse-redex-~a" #'t)]
                       [(lang-parser-subcalls ...)
                        (process-variant-parser                        
                         #'lang-parser-name
@@ -119,15 +110,5 @@
                     lang-parser-subcalls ...)]))           
              )))]
     
-    [(deftype t (variant vfield ...) ...)     
-     (syntax (deftype (t) (variant vfield ...) ...))]))
-
-(define-syntax (play-provide stx)
-  (raise-syntax-error #f "The PLAY language provides all defined names" stx))
-
-(define-syntax (play-module-begin stx)
-  (syntax-case stx ()
-    [(_ body ...)
-     #`(#%module-begin
-        (provide #,(datum->syntax stx '(all-defined-out)))
-        body ...)]))
+    [(deftype-redex t (variant vfield ...) ...)     
+     (syntax (deftype-redex (t) (variant vfield ...) ...))]))
