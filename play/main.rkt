@@ -25,7 +25,7 @@
 
 (define-syntax check/exn
   (syntax-rules ()
-    [(test/exn test-expr message)
+    [(check/exn test-expr message)
      (check-exn (λ (e) (regexp-match (regexp message) (exn-message e))) (λ () test-expr))]))
 
 (define-syntax deftype
