@@ -2,7 +2,7 @@
 
 (require (except-in plai/datatype define-type)
          plai/test-harness
-         "../defmac.rkt"
+         "./defmac.rkt"
          (for-syntax racket/syntax)
          (for-syntax racket)
          (except-in rackunit check)

@@ -3,7 +3,7 @@
 (require parser-tools/lex)
 (require parser-tools/lex-sre)
 (require parser-tools/yacc)
-(require "../defmac.rkt")
+(require "./defmac.rkt")
 
 (provide
  (all-from-out parser-tools/lex)
