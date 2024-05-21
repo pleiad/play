@@ -33,14 +33,14 @@
     [(deftype (t tfield ...) (variant vfield ...) ...)
      (begin
        (struct t (tfield ...)
-         #:transparent #:mutable
+         #:transparent
          #:guard 
          (λ (tfield ... const)
            (if (eq? const 't) 
                (error (format "cannot construct value of type ~a: use one of the variants ~a"
                               't (list 'variant ...)))
                (values tfield ...))))
-       (struct variant t (vfield ...) #:transparent #:mutable) ...)]
+       (struct variant t (vfield ...) #:transparent) ...)]
     [(deftype t (variant vfield ...) ...)
      (deftype (t) (variant vfield ...) ...)]))
 
